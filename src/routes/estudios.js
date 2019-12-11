@@ -1,8 +1,8 @@
-const express = require("express");
-const router = express.Router();
-const controller = require("../controllers/estudiosController");
+// const express = require("express");
+// const router = express.Router();
+// const controller = require("../controllers/estudiosController");
 
-// define rotas para clientes
-router.get("/", controller.get);
+// // define rotas para clientes
+// router.get("/", controller.get);
 
-module.exports = router;
+// module.exports = router;
