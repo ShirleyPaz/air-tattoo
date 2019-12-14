@@ -16,6 +16,7 @@ db.once('open', () => {console.log('conexão realizada')});
 // Define Rotas
 const index = require('./routes/index');
 const tatuadores = require('./routes/tatuadores');
+const estilos = require('./routes/estilos');
 const estudios = require('./routes/estudios');
 
 // bodyParser
@@ -25,6 +26,7 @@ app.use(bodyParser.json());
 // Rotas
 app.use("/", index);
 app.use('/tatuadores',tatuadores);
+app.use('/estilos', estilos);
 // app.use('/estudios', estudios);
 
 module.exports = app;
