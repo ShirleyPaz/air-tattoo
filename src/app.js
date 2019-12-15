@@ -27,6 +27,6 @@ app.use(bodyParser.json());
 app.use("/", index);
 app.use('/tatuadores',tatuadores);
 app.use('/estilos', estilos);
-// app.use('/estudios', estudios);
+app.use('/estudios', estudios);
 
 module.exports = app;
