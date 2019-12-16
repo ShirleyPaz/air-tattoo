@@ -11,28 +11,23 @@ exports.get = (req, res) => {
 };
 
 exports.post = (req, res) => {
-    Tatuador.find()
-        .then((tatuadores) => {
-            const nextId = tatuadores.length == 0 ? 0 : tatuadores[tatuadores.length - 1].id + 1
-            let tatuador = new Tatuador(req.body);
-            tatuador.id = nextId;
-            tatuador.nome = tatuador.nome.toLowerCase();
-            tatuador.save()
+    const tatuador = new Tatuador(req.body);
+    tatuador.save()
+        .then(() => {
             return res.status(201).send({ tatuador })
-        })
-        .catch((e) => {
+        }).catch((e) => {
             res.status(500).send(e)
         })
 }
 
-exports.deleteByName = async (req, res) => {
-    const nome = req.body.nome.toLowerCase();
-    await Tatuador.find({ nome })
+exports.deleteById = async (req, res) => {
+    const idParam = req.body._id
+    await Tatuador.findById(idParam)
         .then((tatuador) => {
-            if (tatuador.length === 0) {
+            if (!tatuador) {
                 return res.sendStatus(404).send("NOT FOUND");;
             }
-            tatuador[0].remove(err => {
+            tatuador.remove(err => {
                 if (!err) {
                     res.status(200).send("SUCCESS");
                 }
@@ -48,10 +43,9 @@ exports.updateById = async (req, res) => {
     try {
         const idParam = req.params.id;
         let novoTatuador = req.body;
-        novoTatuador.nome = req.body.nome.toLowerCase();
-        await Tatuador.updateOne(
-            { id: Number(idParam) },
-            { $set: novoTatuador })
+        await Tatuador.findByIdAndUpdate(
+            idParam,
+            novoTatuador)
             .then((cliente) => {
                 if (!cliente) {
                     return res.sendStatus(404).send("NOT FOUND");;

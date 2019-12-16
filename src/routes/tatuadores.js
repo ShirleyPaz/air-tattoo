@@ -6,6 +6,6 @@ const controller = require("../controllers/tatuadoresController");
 router.get("/", controller.get);
 router.post("/", controller.post);
 router.put("/:id", controller.updateById);
-router.delete("/", controller.deleteByName);
+router.delete("/", controller.deleteById);
 
 module.exports = router;
