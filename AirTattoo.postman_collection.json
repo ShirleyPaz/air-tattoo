@@ -19,7 +19,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"nome\": \"Carla\",\r\n  \"email\": \"carla@email.com\",\r\n  \"estilo\": \"pontilhismo\"\r\n}",
+					"raw": "{\r\n  \"nome\": \"Linda\",\r\n  \"email\": \"linda@email.com\",\r\n  \"estilo\": \"aquarela\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -27,11 +27,10 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:3000/tatuadores",
+					"raw": "{{url}}/tatuadores",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "3000",
 					"path": [
 						"tatuadores"
 					]
@@ -64,11 +63,10 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:3000/tatuadores",
+					"raw": "{{url}}/tatuadores",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "3000",
 					"path": [
 						"tatuadores"
 					]
@@ -90,7 +88,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"nome\": \"Carla\",\n    \"email\": \"carly@email.com\",\n    \"estilo\": \"pontilhismo\"\n}",
+					"raw": "{\n    \"nome\": \"Julia\",\n    \"email\": \"julia@email.com\",\n    \"estilo\": \"pontilhismo\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -98,14 +96,13 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:3000/tatuadores/5df747f1939f3c42b4befb22",
+					"raw": "{{url}}/tatuadores/5df73f3bf3a6ab4df0bd2cd4",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "3000",
 					"path": [
 						"tatuadores",
-						"5df747f1939f3c42b4befb22"
+						"5df73f3bf3a6ab4df0bd2cd4"
 					]
 				}
 			},
@@ -125,7 +122,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"_id\": \"5df747f1939f3c42b4befb22\"\r\n}",
+					"raw": "{\r\n  \"id\": \"5df79d4d55eb1d5ae2b7df81\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -133,11 +130,10 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:3000/tatuadores",
+					"raw": "{{url}}/tatuadores",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "3000",
 					"path": [
 						"tatuadores"
 					]
@@ -159,7 +155,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{  \n        \"nome\": \"Jaguar\",\n        \"email\": \"jaguar@email.com\"\n}",
+					"raw": "{  \n        \"nome\": \"meli\",\n        \"email\": \"meli@email.com\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -167,11 +163,10 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:3000/estudios",
+					"raw": "{{url}}/estudios",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "3000",
 					"path": [
 						"estudios"
 					]
@@ -185,11 +180,43 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:3000/estudios",
+					"raw": "{{url}}/estudios",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "3000",
+					"path": [
+						"estudios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE | Estudios",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": \"5df7c2a00fefe269d811e125\"\n}\n\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/estudios",
+					"host": [
+						"{{url}}"
+					],
 					"path": [
 						"estudios"
 					]
@@ -211,7 +238,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"data\": \"2019-12-25\",\n    \"horaInicio\": 9,\n    \"horaFinal\": 23\n}",
+					"raw": "{\n    \"data\": \"2019-12-20\",\n    \"horaInicio\": 10,\n    \"horaFinal\": 22\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -219,11 +246,10 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:3000/estudios/{{estudioId}}/agendas",
+					"raw": "{{url}}/estudios/{{estudioId}}/agendas",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "3000",
 					"path": [
 						"estudios",
 						"{{estudioId}}",
@@ -246,11 +272,10 @@
 					}
 				],
 				"url": {
-					"raw": "localhost:3000/estudios/{{estudioId}}/agendas",
+					"raw": "{{url}}/estudios/{{estudioId}}/agendas",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "3000",
 					"path": [
 						"estudios",
 						"{{estudioId}}",
@@ -282,39 +307,50 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:3000/estudios/{{estudioId}}/agendas/5df74e66f0a7353ef4d809e5",
+					"raw": "{{url}}/estudios/{{estudioId}}/agendas/5df7b7fdab18580c55eb521c",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "3000",
 					"path": [
 						"estudios",
 						"{{estudioId}}",
 						"agendas",
-						"5df74e66f0a7353ef4d809e5"
+						"5df7b7fdab18580c55eb521c"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "DELETE | EventById",
+			"name": "DELETE | AgendaById",
 			"request": {
 				"method": "DELETE",
-				"header": [],
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": \"5df7ab038bbe5d755a0e9f9a\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "localhost:3000/estudios/meli/agenda/23122019/eventos/0",
+					"raw": "{{url}}/estudios/{{estudioId}}/agendas",
 					"host": [
-						"localhost"
+						"{{url}}"
 					],
-					"port": "3000",
 					"path": [
 						"estudios",
-						"meli",
-						"agenda",
-						"23122019",
-						"eventos",
-						"0"
+						"{{estudioId}}",
+						"agendas"
 					]
 				}
 			},
