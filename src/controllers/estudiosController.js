@@ -66,8 +66,8 @@ exports.getAgendaByDate = (req, res) => {
 
     Estudio.find({ nome })
         .then((estudios) => {
-            const agendaArr = estudios[0].agenda;
-            const agenda = agendaArr.find(agenda => agenda.data.getTime() === data.getTime())
+            const agendasArr = estudios[0].agenda;
+            const agenda = agendasArr.find(agenda => agenda.data.getTime() === data.getTime())
             res.status(200).send(agenda);
         })
         .catch((e) => {
@@ -84,7 +84,7 @@ exports.postAgendaByEstudioName = (req, res) => {
                 res.status(200).send({ message: "estúdio não encontrado" })
             }
             let estudio = new Estudio(estudios[0]);
-            const agendaArr = [...estudios[0].agenda];
+            const agendasArr = [...estudios[0].agenda];
             const agendaReq = req.body;
             if (!agendaReq.data.includes('-')) {
                 const dia = agendaReq.data.slice(0, 2);
@@ -93,8 +93,8 @@ exports.postAgendaByEstudioName = (req, res) => {
                 const dataConcat = `${ano}-${mes}-${dia}`;
                 agendaReq.data = new Date(dataConcat);
             } else { agendaReq.data = new Date(agendaReq.data) }
-            agendaArr.push(agendaReq);
-            estudio.agenda = agendaArr;
+            agendasArr.push(agendaReq);
+            estudio.agenda = agendasArr;
             estudio.save()
             return res.status(201).send({ estudio })
         })
@@ -122,10 +122,10 @@ exports.postEventoByDate = (req, res) => {
                 res.status(200).send({ message: "estúdio não encontrado" })
             }
             let estudio = new Estudio(estudios[0]);
-            const agendaArr = [...estudio.agenda];
-            const agendaDoDia = agendaArr.find(agenda => agenda.data.getTime() === data.getTime())
+            const agendasArr = [...estudio.agenda];
+            const agendaDoDia = agendasArr.find(agenda => agenda.data.getTime() === data.getTime())
             if (agendaDoDia) {
-                const indexAgenda = agendaArr.findIndex(agenda => agenda.data.getTime() === data.getTime())
+                const indexAgenda = agendasArr.findIndex(agenda => agenda.data.getTime() === data.getTime())
                 const evento = req.body;
                 // criar evento id
                 const nextId = agendaDoDia.eventos.length == 0 ? 0 : agendaDoDia.eventos[agendaDoDia.eventos.length - 1].id + 1
@@ -149,17 +149,17 @@ exports.postEventoByDate = (req, res) => {
                 const dentroDaAgenda = inicioAgendamento >= inicioAgenda && fimAgendamento <= fimAgenda
 
                 // checar se não interfere em outros eventos
-                const eventosEmConflito = agendaDoDia.eventos.filter( e => {
+                const eventosEmConflito = agendaDoDia.eventos.filter(e => {
                     return (inicioAgendamento >= e.horaInicio && e.horaFinal >= inicioAgendamento ||
-                        inicioAgendamento <=e.horaInicio && fimAgendamento >=e.horaFinal) 
+                        inicioAgendamento <= e.horaInicio && fimAgendamento >= e.horaFinal)
                 })
 
 
                 if (dentroDaAgenda && eventosEmConflito.length === 0) {
                     //checar outros eventos pra ver se bate
                     agendaDoDia.eventos.push(evento);
-                    agendaArr.splice(indexAgenda, 1, agendaDoDia);
-                    estudio.agenda = agendaArr;
+                    agendasArr.splice(indexAgenda, 1, agendaDoDia);
+                    estudio.agenda = agendasArr;
                     estudio.save()
                     return res.status(201).send({ estudio })
                 } else {
@@ -201,8 +201,8 @@ exports.getEventosByDate = (req, res) => {
 
     Estudio.find({ nome })
         .then((estudios) => {
-            const agendaArr = estudios[0].agenda;
-            const agenda = agendaArr.find(agenda => agenda.data.getTime() === data.getTime())
+            const agendasArr = estudios[0].agenda;
+            const agenda = agendasArr.find(agenda => agenda.data.getTime() === data.getTime())
             res.status(200).send(agenda.eventos);
         })
         .catch((e) => {
@@ -227,12 +227,61 @@ exports.getEventoByDateAndId = (req, res) => {
 
     Estudio.find({ nome })
         .then((estudios) => {
-            const agendaArr = estudios[0].agenda;
-            const agenda = agendaArr.find(agenda => agenda.data.getTime() === data.getTime())
-            const evento = agenda.eventos.find(e =>  e.id == eventoId);
+            const agendasArr = estudios[0].agenda;
+            const agenda = agendasArr.find(agenda => agenda.data.getTime() === data.getTime())
+            const evento = agenda.eventos.find(e => e.id == eventoId);
             res.status(200).send(evento);
         })
         .catch((e) => {
             res.status(500).send(e)
         })
+};
+
+exports.deleteEventById = (req, res) => {
+    const nome = req.params.name;
+    let data = req.params.data;
+    let eventoId = req.params.eventoId;
+
+    if (!data.includes('-')) {
+        const dia = data.slice(0, 2);
+        const mes = data.slice(2, 4);
+        const ano = data.slice(4);
+        const dataConcat = `${ano}-${mes}-${dia}`;
+        data = new Date(dataConcat);
+    } else {
+        data = new Date(data);
+    }
+
+    Estudio.find({ nome })
+        .then((estudios) => {
+            if (estudios.length === 0) {
+                res.status(200).send({ message: "estúdio não encontrado" })
+            }
+            let estudio = new Estudio(estudios[0]);
+            const agendasArr = [...estudio.agenda];
+            const agendaDoDia = agendasArr.find(agenda => agenda.data.getTime() === data.getTime())
+            if (agendaDoDia) {
+                const agendaIndex = agendasArr.findIndex(agenda => agenda.data.getTime() === data.getTime())
+                // remover evento da agenda
+                const eventoIndex = agendaDoDia.eventos.findIndex(e => e.id == eventoId);
+                if (eventoIndex > -1) {
+                    agendaDoDia.eventos.splice(eventoIndex, 1);
+                    const novaAgenda = agendasArr.splice(agendaIndex,1,agendaDoDia);
+                    estudio.agenda = novaAgenda;
+                    estudio.save();
+                    return res.status(200).send({ message: 'evento removido com sucesso' })
+                } else {
+                    return res.status(200).send({ message: 'evento não encontrado' })
+                }
+            } else {
+                return res.status(200).send({ message: 'Não há eventos registrados nessa data' })
+            }
+        })
+        .catch((e) => {
+            res.status(500).send(e)
+        })
+};
+
+exports.updateEventById = (request, response) => {
+
 };
