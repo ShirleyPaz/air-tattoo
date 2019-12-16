@@ -12,7 +12,7 @@ router.get("/:name", controller.getByName);
 router.post("/", controller.post);
 router.post("/:name/agenda/:data", controller.postEventoByDate);
 router.post("/:name/agenda", controller.postAgendaByEstudioName);
-router.put("/:name/agenda/:data/:eventoId", controller.updateEventById);
+router.put("/:name/agenda/:data/eventos/:eventoId", controller.updateEventById);
 router.delete("/:name/agenda/:data/eventos/:eventoId", controller.deleteEventById);
 
 module.exports = router;
