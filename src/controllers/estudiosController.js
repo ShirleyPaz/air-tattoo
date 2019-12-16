@@ -1,10 +1,10 @@
 const Estudio = require('../models/estudiosSchema')
+const mongoose = require('mongoose');
 
 exports.post = (req, res) => {
     const estudio = new Estudio(req.body);
     estudio.save()
-        .then(returnedValue => {
-            console.log(returnedValue)
+        .then(() => {
             res.status(201).send('SUCCESS')
         })
         .catch((e) => {
@@ -18,7 +18,25 @@ exports.get = (req, res) => {
             res.status(200).send(estudios);
         })
         .catch((e) => {
-            res.status(500).send(e)
+            res.status(500).send('AN ERROR HAS OCCURRED. TRY AGAIN LATER.')
+        })
+};
+
+exports.deleteById = async (req, res) => {
+    const idParam = req.body.id
+    await Estudio.findById(idParam)
+        .then((estudio) => {
+            if (!estudio) {
+                return res.sendStatus(404).send("NOT FOUND");;
+            }
+            estudio.remove(err => {
+                if (!err) {
+                    res.status(200).send("SUCCESS");
+                }
+            });
+        })
+        .catch((e) => {
+            res.status(500).send('AN ERROR HAS OCCURRED. TRY AGAIN LATER.')
         })
 };
 
@@ -38,67 +56,81 @@ exports.getAgendasByEstudio = async (req, res) => {
 };
 
 exports.postAgendaByEstudio = (req, res) => {
-    const paramId = req.params.id;
+    const estudioId = req.params.id;
     const agenda = req.body;
 
-    Estudio.findById(paramId)
+    Estudio.findById(estudioId)
         .then((estudio) => {
             estudio.agendas.push(agenda);
             estudio.save()
                 .then(() => {
                     res.status(200).send('SUCCESS');
                 }).catch(() => {
-                    res.status(500).send('NOT FOUND')
+                    res.status(500).send('AN ERROR HAS OCCURRED. TRY AGAIN LATER.')
                 })
         }).catch((e) => {
-            console.log(e)
-            res.status(500).send('AN ERROR HAS OCCURRED. TRY AGAIN LATER.')
+            res.status(404).send('NOT FOUND')
         })
 };
 
 exports.updateAgendaById = async (req, res) => {
-    try {
-        const estudioId = req.params.id;
-        await Estudio.findById(estudioId)
-            .then(async (estudio) => {
-                const agendaId = req.params.agendaId;
-                let newAgenda = req.body;
-                try {
-                    const agenda = await estudio.agendas.find(agendaId);
-                    agenda.update(newAgenda);
-                    try {
-                        res.status(200).send("SUCCESS");
-                    } catch {
-                        res.status(500).send('AN ERROR HAS OCCURRED. TRY AGAIN LATER.')
-                    }
-                } catch {
-                    return res.sendStatus(404).send("NOT FOUND");;
-                }
-            })
-            .catch((e) => {
-                res.status(404).send('NOT FOUND')
-            })
-
-    } catch (e) {
-        res.status(500).send('INVALID INPUT')
-    }
+    const estudioId = req.params.id;
+    const agendaId = req.params.agendaId;
+    let newAgenda = req.body;
+    await Estudio.findOneAndUpdate(
+        { _id: estudioId },
+        {
+            $set: {
+                "agendas.$[elem].data": newAgenda.data,
+                "agendas.$[elem].horaInicio": newAgenda.horaInicio,
+                "agendas.$[elem].horaFinal": newAgenda.horaFinal,
+                "agendas.$[elem].eventos": newAgenda.eventos || []
+            },
+        },
+        {
+            arrayFilters: [{
+                "elem._id": new mongoose.Types.ObjectId(agendaId),
+            }],
+        })
+        .then(() => {
+            res.status(200).send("SUCCESS");
+        })
+        .catch((e) => {
+            console.log(e)
+            res.status(404).send('NOT FOUND')
+        })
 };
 
 exports.deleteAgendaById = async (req, res) => {
-    try {
-        const agendaId = req.params.id;
-        try {
-            const agenda = await Tatuador.agendas.find(agendaId);
-            agenda.remove();
+    const estudioId = req.params.id;
+    const agendaId = req.params.id;
+    await Estudio.findOneAndUpdate(
+        { _id: estudioId },
+        { $set: { "agendas.$[elem]": "[deleted]" } },
+        {
+            arrayFilters: [{
+                "elem._id": new mongoose.Types.ObjectId(agendaId),
+            }],
+            new: true
+        },
+    )
+        .then(async estudio => {
+            const agendaId = req.params.agendaId;
+            let newAgenda = req.body;
             try {
-                res.status(200).send("SUCCESS");
-            } catch {
-                res.status(500).send('AN ERROR HAS OCCURRED. TRY AGAIN LATER.')
+                await estudio.update(
+                    { agendas: { $elemMatch: { _id: agendaId } } },
+                    { $unset: { 'agendas.$': newAgenda } })
+                    .then(() => {
+                        res.status(200).send("SUCCESS");
+                    })
+                    .catch((e) => {
+                        console.log(e)
+                        res.status(500).send('AN ERROR HAS OCCURRED. TRY AGAIN LATER.')
+                    })
+            } catch (e) {
+                console.log(e)
+                res.status(404).send('NOT FOUND 2')
             }
-        } catch {
-            return res.sendStatus(404).send("NOT FOUND");;
-        }
-    } catch (e) {
-        res.status(500).send('INVALID INPUT')
-    }
-};
+        })
+}
