@@ -2,7 +2,7 @@
 
 AirTattoo é um app de reservas para que tatuadores e estúdios descubram novas oportunidades e conexões.
 
-## Requisitos
+## Tecnologias
   - NPM v6.12.1
   - Node.js v12.13.0
   - Express v4.17.1
