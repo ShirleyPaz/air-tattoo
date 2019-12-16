@@ -14,14 +14,14 @@ exports.post = (req, res) => {
     const tatuador = new Tatuador(req.body);
     tatuador.save()
         .then(() => {
-            return res.status(201).send({ tatuador })
+            return res.status(201).send('SUCCESS')
         }).catch((e) => {
             res.status(500).send(e)
         })
 }
 
 exports.deleteById = async (req, res) => {
-    const idParam = req.body._id
+    const idParam = req.body.id
     await Tatuador.findById(idParam)
         .then((tatuador) => {
             if (!tatuador) {
