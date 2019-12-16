@@ -8,10 +8,9 @@ const EstudiosSchema = new Schema(
         email: { type: String, required: true },
         endLogradouro: { type: String, required: true },
         endNumero: { type: Number, required: true },
-        cep: { type: Number, required: true },
+        cep: { type: String, required: true },
         agenda: [
             {
-                id: { type: Number, required: true },
                 data: { type: Date, required: true },
                 horaInicio: { type: String, required: true },
                 horaFinal: { type: String, required: true },
@@ -21,6 +20,7 @@ const EstudiosSchema = new Schema(
                         horaInicio: { type: String, required: true },
                         horaFinal: { type: String, required: true },
                         tatuador: { type: String },
+                        tatuador: { type: Number },
                         tipo: { type: String, required: true },
                     }
                 ],
