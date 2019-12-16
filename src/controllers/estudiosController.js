@@ -103,34 +103,15 @@ exports.updateAgendaById = async (req, res) => {
 
 exports.deleteAgendaById = async (req, res) => {
     const estudioId = req.params.id;
-    const agendaId = req.params.id;
+    const agendaId = req.body.id;
     await Estudio.findOneAndUpdate(
         { _id: estudioId },
-        { $set: { "agendas.$[elem]": "[deleted]" } },
-        {
-            arrayFilters: [{
-                "elem._id": new mongoose.Types.ObjectId(agendaId),
-            }],
-            new: true
-        },
-    )
-        .then(async estudio => {
-            const agendaId = req.params.agendaId;
-            let newAgenda = req.body;
-            try {
-                await estudio.update(
-                    { agendas: { $elemMatch: { _id: agendaId } } },
-                    { $unset: { 'agendas.$': newAgenda } })
-                    .then(() => {
-                        res.status(200).send("SUCCESS");
-                    })
-                    .catch((e) => {
-                        console.log(e)
-                        res.status(500).send('AN ERROR HAS OCCURRED. TRY AGAIN LATER.')
-                    })
-            } catch (e) {
-                console.log(e)
-                res.status(404).send('NOT FOUND 2')
-            }
+        { $pull: { agendas: { _id: agendaId } } },
+    ).then(() => {
+        res.status(200).send("SUCCESS");
+    })
+        .catch((e) => {
+            console.log(e)
+            res.status(404).send('NOT FOUND')
         })
 }
