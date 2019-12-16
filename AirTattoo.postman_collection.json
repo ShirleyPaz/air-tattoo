@@ -1,0 +1,325 @@
+{
+	"info": {
+		"_postman_id": "3e84b9e6-d46b-4e39-ab59-00172ef43075",
+		"name": "AirTattoo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POST | Tatuadores",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"Carla\",\r\n  \"email\": \"carla@email.com\",\r\n  \"estilo\": \"pontilhismo\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/tatuadores",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"tatuadores"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET | Tatuadores",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/tatuadores",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"tatuadores"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT | Tatuadores",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nome\": \"Carla\",\n    \"email\": \"carly@email.com\",\n    \"estilo\": \"pontilhismo\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/tatuadores/5df747f1939f3c42b4befb22",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"tatuadores",
+						"5df747f1939f3c42b4befb22"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE | Tatuadores",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"_id\": \"5df747f1939f3c42b4befb22\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/tatuadores",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"tatuadores"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST | Estudios",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{  \n        \"nome\": \"Jaguar\",\n        \"email\": \"jaguar@email.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/estudios",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"estudios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET | Estudios",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/estudios",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"estudios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST | AgendaByEstudio",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"data\": \"2019-12-25\",\n    \"horaInicio\": 9,\n    \"horaFinal\": 23\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/estudios/{{estudioId}}/agendas",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"estudios",
+						"{{estudioId}}",
+						"agendas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET | AgendasByEstudio",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/estudios/{{estudioId}}/agendas",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"estudios",
+						"{{estudioId}}",
+						"agendas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT | AgendaById",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"data\": \"2019-12-23T00:00:00.000Z\",\n    \"horaInicio\": 9,\n    \"horaFinal\": 20\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/estudios/{{estudioId}}/agendas/5df74e66f0a7353ef4d809e5",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"estudios",
+						"{{estudioId}}",
+						"agendas",
+						"5df74e66f0a7353ef4d809e5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE | EventById",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/estudios/meli/agenda/23122019/eventos/0",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"estudios",
+						"meli",
+						"agenda",
+						"23122019",
+						"eventos",
+						"0"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
