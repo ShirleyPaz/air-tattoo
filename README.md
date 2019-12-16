@@ -1,6 +1,6 @@
 # AirTattoo
 
-Este projeto tem como objetivo conectar tatuadores e estúdios para facilitar os agendamentos.
+AirTattoo é um app de reservas para que tatuadores e estúdios descubram novas oportunidades e conexões.
 
 ## Requisitos
   - NPM v6.12.1
