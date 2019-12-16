@@ -16,6 +16,7 @@ exports.post = (req, res) => {
             const nextId = tatuadores.length == 0 ? 0 : tatuadores[tatuadores.length - 1].id + 1
             let tatuador = new Tatuador(req.body);
             tatuador.id = nextId;
+            tatuador.nome = tatuador.nome.toLowerCase();
             tatuador.save()
             return res.status(201).send({ tatuador })
         })
