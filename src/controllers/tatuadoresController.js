@@ -46,8 +46,8 @@ exports.updateById = async (req, res) => {
         await Tatuador.findByIdAndUpdate(
             idParam,
             novoTatuador)
-            .then((cliente) => {
-                if (!cliente) {
+            .then((tatuador) => {
+                if (!tatuador) {
                     return res.sendStatus(404).send("NOT FOUND");;
                 }
                 res.status(200).send("SUCCESS");
