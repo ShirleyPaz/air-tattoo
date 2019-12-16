@@ -5,10 +5,10 @@ exports.post = (req, res) => {
     const estudio = new Estudio(req.body);
     estudio.save()
         .then(() => {
-            res.status(201).send('SUCCESS')
+            res.status(201).send({status: 201, mensagem: 'Adicionado com sucesso.'})
         })
         .catch((e) => {
-            res.status(500).send('AN ERROR HAS OCCURRED. TRY AGAIN LATER.')
+            res.status(500).send({status: 500, mensagem: 'Ops!Estamos com problemas técnicos. Tente mais tarde!'})
         })
 }
 
@@ -18,7 +18,7 @@ exports.get = (req, res) => {
             res.status(200).send(estudios);
         })
         .catch((e) => {
-            res.status(500).send('AN ERROR HAS OCCURRED. TRY AGAIN LATER.')
+            res.status(500).send({status: 500, mensagem: 'Ops!Estamos com problemas técnicos. Tente mais tarde!'})
         })
 };
 
@@ -27,16 +27,16 @@ exports.deleteById = async (req, res) => {
     await Estudio.findById(idParam)
         .then((estudio) => {
             if (!estudio) {
-                return res.sendStatus(404).send("NOT FOUND");;
+                return res.sendStatus(404).send({status: 404, mensagem: 'estúdio não encontrado'});;
             }
             estudio.remove(err => {
                 if (!err) {
-                    res.status(200).send("SUCCESS");
+                    res.status(200).send({status: 200, mensagem: 'Removido com sucesso'});
                 }
             });
         })
         .catch((e) => {
-            res.status(500).send('AN ERROR HAS OCCURRED. TRY AGAIN LATER.')
+            res.status(500).send({status: 500, mensagem: 'Ops!Estamos com problemas técnicos. Tente mais tarde!'})
         })
 };
 
@@ -48,10 +48,10 @@ exports.getAgendasByEstudio = async (req, res) => {
                 res.status(200).send(estudio.agendas);
             })
             .catch((e) => {
-                res.status(404).send('NOT FOUND');
+                res.status(404).send({status: 404, mensagem: 'estúdio não encontrado'});
             })
     } catch (e) {
-        res.status(500).send('AN ERROR HAS OCCURRED. TRY AGAIN LATER.')
+        res.status(500).send({status: 500, mensagem: 'Ops!Estamos com problemas técnicos. Tente mais tarde!'})
     }
 };
 
@@ -64,12 +64,12 @@ exports.postAgendaByEstudio = (req, res) => {
             estudio.agendas.push(agenda);
             estudio.save()
                 .then(() => {
-                    res.status(200).send('SUCCESS');
+                    res.status(201).send({status: 201, mensagem: 'Adicionado com sucesso.'});
                 }).catch(() => {
-                    res.status(500).send('AN ERROR HAS OCCURRED. TRY AGAIN LATER.')
+                    res.status(500).send({status: 500, mensagem: 'Ops!Estamos com problemas técnicos. Tente mais tarde!'})
                 })
         }).catch((e) => {
-            res.status(404).send('NOT FOUND')
+            res.status(404).send({status: 404, mensagem: 'estúdio não encontrado'})
         })
 };
 
@@ -93,11 +93,11 @@ exports.updateAgendaById = async (req, res) => {
             }],
         })
         .then(() => {
-            res.status(200).send("SUCCESS");
+            res.status(200).send({status: 200, mensagem: 'Atualizado com sucesso'});
         })
         .catch((e) => {
             console.log(e)
-            res.status(404).send('NOT FOUND')
+            res.status(404).send({status: 404, mensagem: 'agenda não encontrada'})
         })
 };
 
@@ -108,10 +108,10 @@ exports.deleteAgendaById = async (req, res) => {
         { _id: estudioId },
         { $pull: { agendas: { _id: agendaId } } },
     ).then(() => {
-        res.status(200).send("SUCCESS");
+        res.status(200).send({status: 200, mensagem: 'Removido com sucesso'});
     })
         .catch((e) => {
             console.log(e)
-            res.status(404).send('NOT FOUND')
+            res.status(404).send({status: 404, mensagem: 'agenda não encontrada'})
         })
 }
