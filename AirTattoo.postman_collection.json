@@ -88,7 +88,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"nome\": \"Julia\",\n    \"email\": \"julia@email.com\",\n    \"estilo\": \"pontilhismo\"\n}",
+					"raw": "{\n    \"nome\": \"Julia\",\n    \"email\": \"ju@email.com\",\n    \"estilo\": \"pontilhismo\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -96,13 +96,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{url}}/tatuadores/5df73f3bf3a6ab4df0bd2cd4",
+					"raw": "{{url}}/tatuadores/{{tatuadorId}}",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"tatuadores",
-						"5df73f3bf3a6ab4df0bd2cd4"
+						"{{tatuadorId}}"
 					]
 				}
 			},
@@ -122,7 +122,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"id\": \"5df79d4d55eb1d5ae2b7df81\"\r\n}",
+					"raw": "{\r\n  \"id\": \"5df7ffe0ad769961c7ccc28c\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -205,7 +205,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"id\": \"5df7c2a00fefe269d811e125\"\n}\n\n",
+					"raw": "{\n\t\"id\": \"5df8007aad769961c7ccc28e\"\n}\n\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -238,7 +238,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"data\": \"2019-12-25\",\n    \"horaInicio\": 10,\n    \"horaFinal\": 22\n}",
+					"raw": "{\n    \"data\": \"2019-12-28\",\n    \"horaInicio\": 10,\n    \"horaFinal\": 22\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -299,7 +299,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"data\": \"2019-12-23T00:00:00.000Z\",\n    \"horaInicio\": 9,\n    \"horaFinal\": 20\n}",
+					"raw": "{\n    \"data\": \"2019-12-28T00:00:00.000Z\",\n    \"horaInicio\": 8,\n    \"horaFinal\": 20\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -307,7 +307,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{url}}/estudios/{{estudioId}}/agendas/5df7b7fdab18580c55eb521c",
+					"raw": "{{url}}/estudios/{{estudioId}}/agendas/{{agendaId}}",
 					"host": [
 						"{{url}}"
 					],
@@ -315,7 +315,7 @@
 						"estudios",
 						"{{estudioId}}",
 						"agendas",
-						"5df7b7fdab18580c55eb521c"
+						"{{agendaId}}"
 					]
 				}
 			},
@@ -335,7 +335,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"id\": \"5df7dcda22c2f31cbdb54a\"\n}",
+					"raw": "{\n\t\"id\": \"{{agendaId}}\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
