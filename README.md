@@ -42,4 +42,4 @@ npm run dev
 - PUT
 
 ## Documentação
-[MIT](https://airt-tattoo-api.herokuapp.com/api)
+[MIT](https://documenter.getpostman.com/view/3988979/SWEB2w9a?version=latest)
